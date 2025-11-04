@@ -44,42 +44,43 @@ jobs:
         run: |
           npm install -g @dvcorg/cml
           
-          echo "# 🏆 Rapport de Comparaison de Modèles - Iris Classification" >> report.md
-          echo "" >> report.md
-          echo "Ce rapport compare automatiquement les performances de différents algorithmes de classification sur le dataset Iris." >> report.md
-          echo "" >> report.md
-          
-          echo "## 🎯 Meilleur Modèle Sélectionné" >> report.md
-          echo "" >> report.md
-          echo '```json' >> report.md
+          cat > report.md << 'EOF'
+          # 🏆 Rapport de Comparaison de Modèles - Iris Classification
+
+          Ce rapport compare automatiquement les performances de différents algorithmes de classification sur le dataset Iris.
+
+          ## 🎯 Meilleur Modèle Sélectionné
+
+          ```json
+          EOF
           cat experiments/best_model.json >> report.md
-          echo '```' >> report.md
-          echo "" >> report.md
-          
-          echo "## 📊 Comparaison des Accuracy" >> report.md
-          echo "" >> report.md
-          cml publish reports/accuracy_comparison.png --md >> report.md
-          echo "" >> report.md
-          
-          echo "## 📈 Comparaison de Toutes les Métriques" >> report.md
-          echo "" >> report.md
-          cml publish reports/all_metrics_comparison.png --md >> report.md
-          echo "" >> report.md
-          
-          echo "## 🔥 Heatmap des Performances" >> report.md
-          echo "" >> report.md
-          cml publish reports/performance_heatmap.png --md >> report.md
-          echo "" >> report.md
-          
-          echo "## 📋 Résultats Détaillés" >> report.md
-          echo "" >> report.md
-          echo "<details>" >> report.md
-          echo "<summary>Cliquez pour voir tous les résultats</summary>" >> report.md
-          echo "" >> report.md
-          echo '```json' >> report.md
+          cat >> report.md << 'EOF'
+          ```
+
+          ## 📊 Comparaison des Accuracy
+
+          ![Comparaison des Accuracy](./reports/accuracy_comparison.png)
+
+          ## 📈 Comparaison de Toutes les Métriques
+
+          ![Comparaison de Toutes les Métriques](./reports/all_metrics_comparison.png)
+
+          ## 🔥 Heatmap des Performances
+
+          ![Heatmap des Performances](./reports/performance_heatmap.png)
+
+          ## 📋 Résultats Détaillés
+
+          <details>
+          <summary>Cliquez pour voir tous les résultats</summary>
+
+          ```json
+          EOF
           cat experiments/all_results.json >> report.md
-          echo '```' >> report.md
-          echo "</details>" >> report.md
+          cat >> report.md << 'EOF'
+          ```
+          </details>
+          EOF
           
           cml comment create report.md
 
