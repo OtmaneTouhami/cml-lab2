@@ -1,29 +1,62 @@
 # Global data split and defaults
 
 data:
-  test_size: 0.2
+  test_size: 0.25
   random_state: 42
 
-# Define experiments. The workflow matrix will reference these keys.
 experiments:
-  rf_small:
+  RandomForest_50:
     model: random_forest
     params:
       n_estimators: 50
-      max_depth: 3
       random_state: 42
-  rf_big:
+  RandomForest_100:
+    model: random_forest
+    params:
+      n_estimators: 100
+      random_state: 42
+  RandomForest_200:
     model: random_forest
     params:
       n_estimators: 200
-      max_depth: null
       random_state: 42
-  logreg:
-    model: logistic_regression
+  SVM_linear:
+    model: svm
     params:
-      C: 1.0
-      max_iter: 1000
+      kernel: linear
       random_state: 42
-      n_jobs: null
-      solver: lbfgs
-      multi_class: auto
+  SVM_rbf:
+    model: svm
+    params:
+      kernel: rbf
+      random_state: 42
+  SVM_poly:
+    model: svm
+    params:
+      kernel: poly
+      degree: 3
+      random_state: 42
+  XGBoost_01:
+    model: xgboost
+    params:
+      learning_rate: 0.1
+      n_estimators: 100
+      random_state: 42
+      use_label_encoder: false
+      eval_metric: mlogloss
+  XGBoost_05:
+    model: xgboost
+    params:
+      learning_rate: 0.5
+      n_estimators: 100
+      random_state: 42
+      use_label_encoder: false
+      eval_metric: mlogloss
+  XGBoost_001:
+    model: xgboost
+    params:
+      learning_rate: 0.01
+      n_estimators: 100
+      random_state: 42
+      use_label_encoder: false
+      eval_metric: mlogloss
